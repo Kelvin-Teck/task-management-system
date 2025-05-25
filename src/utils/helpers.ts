@@ -1,4 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { UserAttributes } from "../interfaces/user";
 
 // Define a constant for the salt rounds
 const saltRounds = 10;
@@ -24,4 +28,15 @@ export const comparePassword = async (
   } catch (error) {
     throw new Error("Error comparing passwords");
   }
+};
+
+
+// Function to generate access token
+export const generateAccessToken = (user: Partial<UserAttributes>): string => {
+  const token = jwt.sign(
+    { id: user.id, email: user.email, role: user.role },
+    process.env.JWT_SECRET as string
+  );
+
+  return token;
 };
