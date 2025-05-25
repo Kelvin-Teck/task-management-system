@@ -80,9 +80,10 @@
 
 // export default sequelize;
 
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import { User } from "../models/user.model";
 import dotenv from "dotenv";
+import { Task } from "../models/task.model";
 
 // dotenv.config();
 
@@ -93,7 +94,6 @@ const sequelize = new Sequelize({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  models: [User],
   logging: true,
 });
 

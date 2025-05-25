@@ -29,3 +29,20 @@
 //     dialect: "postgres",
 //   },
 // };
+
+
+// models/index.ts
+import sequelize from "../config/database"; // your sequelize instance
+import { initUserModel, User } from "./user.model";
+import { initTaskModel, Task } from "./task.model";
+
+// Initialize models
+initUserModel(sequelize);
+initTaskModel(sequelize);
+
+// Define associations
+Task.belongsTo(User, { foreignKey: "userId", as: "user" });
+User.hasMany(Task, { foreignKey: "userId", as: "tasks" });
+
+// Export models and sequelize
+export { sequelize, User, Task };

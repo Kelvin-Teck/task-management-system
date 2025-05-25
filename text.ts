@@ -1,10 +1,26 @@
-// models/user.model.ts
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { UserAttributes, UserCreationAttributes, UserRole } from "../interfaces/user";
 
+// Define user roles enum
+export enum UserRole {
+  ADMIN = "admin",
+  USER = "user",
+}
 
+// Define User interface for TypeScript
+export interface UserAttributes {
+  id?: number;
+  name: string;
+  email: string;
+  password: string;
+  role?: UserRole;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
-// Define the User model
+export interface UserCreationAttributes extends UserAttributes {
+  id?: number;
+}
+
 export class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
@@ -17,16 +33,14 @@ export class User
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
+  // Define associations here if needed
   static associate(models: any) {
-    User.hasMany(models.Task, {
-      foreignKey: "userId",
-      as: "tasks",
-    });
+    // Example: User.hasMany(models.Task, { foreignKey: 'userId' });
   }
 }
 
-// Export the init function
-export const initUserModel = (sequelize: Sequelize) => {
+// This is the function that sequelize-cli expects
+export default (sequelize: Sequelize) => {
   User.init(
     {
       id: {
@@ -38,7 +52,9 @@ export const initUserModel = (sequelize: Sequelize) => {
         type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
-          notEmpty: { msg: "Name cannot be empty" },
+          notEmpty: {
+            msg: "Name cannot be empty",
+          },
           len: {
             args: [2, 100],
             msg: "Name must be between 2 and 100 characters",
@@ -50,15 +66,21 @@ export const initUserModel = (sequelize: Sequelize) => {
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: { msg: "Must be a valid email address" },
-          notEmpty: { msg: "Email cannot be empty" },
+          isEmail: {
+            msg: "Must be a valid email address",
+          },
+          notEmpty: {
+            msg: "Email cannot be empty",
+          },
         },
       },
       password: {
         type: DataTypes.STRING(255),
         allowNull: false,
         validate: {
-          notEmpty: { msg: "Password cannot be empty" },
+          notEmpty: {
+            msg: "Password cannot be empty",
+          },
           len: {
             args: [6, 255],
             msg: "Password must be at least 6 characters long",
@@ -82,15 +104,6 @@ export const initUserModel = (sequelize: Sequelize) => {
       modelName: "User",
       tableName: "users",
       timestamps: true,
-      indexes: [
-        {
-          unique: true,
-          fields: ["email"],
-        },
-        {
-          fields: ["role"],
-        },
-      ],
     }
   );
 
