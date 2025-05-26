@@ -1,13 +1,10 @@
-# Task Management System 
-
-
+# Task Management System (TMS)
 
 ## Description
 
-**Demo-Credit**  Demo Credit is a mobile lending app that requires wallet functionality. This is needed as borrowers need a wallet to receive the loans they have been granted and also send the money for repayments.
+TMS a simple RESTful API for managing tasks, built with Node.js, Express, and PostgreSQL using Sequelize ORM. It supports user authentication, task creation, updating, completion tracking, and time-based reporting for completed tasks.
 
-
-## ✨ Features 
+## ✨ Features
 
 - [x] CRUD operations for task and user
 - [x] Authentication & Authorization (JWT)
@@ -20,9 +17,9 @@
 - **Node.js**
 - **TypeScript**
 - **Express.js**
-- **PostgreSQL**  for Database Integration
+- **PostgreSQL** for Database Integration
 - **Joi** for input validation
-- **Sequelize ORM** 
+- **Sequelize ORM**
 
 ## 🚀 Getting Started
 
@@ -35,9 +32,10 @@
 ### 1. Clone The Repo
 
 ```bash
-git clone https://github.com/Kelvin-Teck/demo-credit.git
-cd demo-credit
+git clone https://github.com/Kelvin-Teck/task-management-system.git
+cd task-management-system
 ```
+
 ### 2. Install the Dependencies
 
 ```bash
@@ -49,22 +47,29 @@ npm install
 Create a .env file in the root directory with the following:
 
 ```env
-NODE_ENV=<current_environment> # development or production
-PORT=<your_specified_port> 
-DB_HOST=<database_host> # if in development - <localhost> in production - <your_remote_databse_host>
-DB_PORT=<your_database_port> # if in development defaults - 3306, production - <your_remote_database_port> 
-DB_USER=<your_database_user>
+# App Configurations
+PORT=<your_port_number>
+
+# JWT
+JWT_SECRET=<somesecrettoken>
+
+# Database Configuration
+DB_HOST=<localhost> or <your_remote_database_service>
+DB_PORT=<your_database_port>  #if in development - <localhost> in production - <your_remote_databse_host>
+DB_USERNAME=<your_database_username>
 DB_PASSWORD=<your_database_password>
-DB_NAME=<your_database_name>
-EMAIL_SERVICE=gmail
-EMAIL_HOST=gmail
-EMAIL_PORT=587
-EMAIL_PASS=<your_email_app_password>
-EMAIL_USER=<your_email_address>
-ADJUTOR_API_BASE_URL=https://adjutor.lendsqr.com/v2
-ADJUTOR_API_KEY=<your_api_key>
+DB_NAME=task-manager
+DB_DIALECT=postgres 
+
+# Optional Settings
+DB_LOGGING=false
+DB_POOL_MAX=5
+DB_POOL_MIN=0
+DB_POOL_ACQUIRE=30000
+DB_POOL_IDLE=10000
 ```
-Make sure your MySQL server is running and the database `your_database_name` exists. You can create it with:
+
+Make sure your PostgreSQL server is running and the database `your_database_name` exists. You can create it with:
 
 ```sql
 CREATE DATABASE <your_database_name>;
@@ -75,16 +80,18 @@ CREATE DATABASE <your_database_name>;
 ```bash
 npm run migrate
 ```
-This will set up your tables using Knex.
+
+This will set up your tables using Sequelize.
 
 ### 5. Start the Development Server
+
 ```bash
 npm run dev
 ```
+
 The server should now be running on `http://localhost:<your_specified_port>`
 
 ## 💽 Database Design (ER Diagram)
-
 
 Below is the Entity Relationship (ER) diagram representing the database schema for the Demo-Credit application:
 
@@ -96,47 +103,53 @@ Below is the Entity Relationship (ER) diagram representing the database schema f
 
 You can explore and test all endpoints using our Postman documentation:
 
-👉 [Demo-Credit API Postman Docs](https://documenter.getpostman.com/view/30059286/2sB2ixjE3E)
+👉 [Task Management System API Docs](https://documenter.getpostman.com/view/30059286/2sB2ixjE3E)
 
 ## 🗂️ Project Structure
 
 ```bash
-demo-credit/
+task-management-system/
 ├── src/
 │   ├── config/            # Database and environment configurations
 │   ├── controllers/       # Route handlers for each feature (e.g., auth, wallet)
-|   |-- database/          # Database Folder
-|   |   |-- migrations/    # Database migrations files
-|   |-- interfaces/        # TypeScript interface definitions 
+|   |-- migrations/        # Database migrations files
+|   |-- interfaces/        # TypeScript interface definitions
 │   ├── middlewares/       # Custom middleware (e.g., auth, error handler)
 │   ├── models/            # Knex models and queries
 │   ├── routes/            # API route definitions
+|   |-- repositories/      # Databae Interactions
+|   |-- seeders/           # Generates mock Data For Tables
 │   ├── services/          # Business logic and integrations (e.g., blacklist check)
 │   ├── utils/             # Helper functions (e.g., formatters, validators)
-│   ├── types/             # TypeScript type definitions
+|   |-- validators/        # Functions For Input Validations
+│   ├── types/ 
+|   |-- app.ts          # TypeScript type definitions
 │   └── index.ts           # Application entry point
 │
 |
 ├── .env                   # Environment variable definitions
 ├── .gitignore             # Git ignored files
 ├── knexfile.ts            # Knex configuration
-├── package-lock.json          
+├── package-lock.json
 |-- package.json           # Project metadata and scripts
 ├── tsconfig.json          # TypeScript compiler configuration
 └── README.md              # Project documentation
 
 
 ```
-## 🧪 Testing 
+
+## 🧪 Testing
 
 Ensure you’ve set up your test environment before running tests.
 
 ### 🔧 Setup
+
 Install testing dependencies (if you haven’t already):
 
 ```bash
 npm install --save-dev jest ts-jest @types/jest supertest
 ```
+
 Add a test script to your package.json:
 
 ```json
@@ -144,13 +157,14 @@ Add a test script to your package.json:
   "test": "jest"
 }
 ```
+
 ### 🧪 Running Tests
 
 ```bash
 npm run test
 ```
 
-Tests are usually placed in a __tests__/ directory and follow this structure:
+Tests are usually placed in a **tests**/ directory and follow this structure:
 
 ```
 __tests__/
@@ -164,6 +178,7 @@ __tests__/
     └── helpers.spec.ts
     └── validator.spec.ts
 ```
+
 ## 🤝 Contributing
 
 Contributions are welcome and appreciated! Here’s how you can help:
@@ -179,19 +194,23 @@ Contributions are welcome and appreciated! Here’s how you can help:
 ```bash
 git checkout -b feature/your-feature-name
 ```
+
 4. make your changes and Commit your changes
 
 ```bash
 git commit -m "Add your feature description"
 ```
-5. Push to the branch 
+
+5. Push to the branch
 
 ```bash
 git push origin feature/your-feature-name
 ```
+
 6. Open a **Pull Request** with a clear description of your changes
 
 ✅ **Guidelines**
+
 - Follow consistent code formatting (TypeScript best practices).
 
 - Add comments and update documentation if needed.
@@ -199,11 +218,12 @@ git push origin feature/your-feature-name
 - Write or update tests when adding features or fixing bugs.
 
 ## 🪪 License
+
 This project is licensed under the **MIT License**.  
 See the [MIT License](https://opensource.org/licenses/MIT) for more information.
 
-
 ## Author / Acknowledgements
+
 👤 **Author**
 
 Eneh Kelvin Chukwuemeka
