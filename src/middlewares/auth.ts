@@ -2,6 +2,29 @@ import { NextFunction, Request, Response } from "express";
 import * as helper from "../utils/helpers";
 import { newError, sendError, sendSuccess } from "../utils/apiResponses";
 
+import rateLimit from "express-rate-limit";
+
+// Function to create and return a rate limiter middleware
+export const createRateLimiter = (
+  maxRequests: number,
+  windowMinutes: number
+) => {
+  return rateLimit({
+    windowMs: windowMinutes * 60 * 1000, // windowMinutes in milliseconds
+    max: maxRequests, // limit each IP to maxRequests per windowMs
+    message: {
+      status: 429, // Too Many Requests
+      message: "Too many login attempts, please try again later.",
+    },
+    handler: (req: Request, res: Response, next: NextFunction) => {
+      res.status(429).json({
+        error: "Too many login attempts. Please try again later.",
+      });
+    },
+  });
+};
+
+
 export const AuthGuard = async (
   req: Request,
   res: Response,
