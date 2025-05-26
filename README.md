@@ -91,13 +91,6 @@ npm run dev
 
 The server should now be running on `http://localhost:<your_specified_port>`
 
-## 💽 Database Design (ER Diagram)
-
-Below is the Entity Relationship (ER) diagram representing the database schema for the TMS application:
-
-![TMS ER Diagram](./demo-credit-erd_1.png)
-
-> This diagram illustrates the relationships between users, wallets, transactions, and other core entities in the system.
 
 ## 📬 API Reference
 

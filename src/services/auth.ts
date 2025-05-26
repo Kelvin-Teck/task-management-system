@@ -71,7 +71,7 @@ export const login = async (req: Request) => {
 
 //   const { password: pass, ...safeUser } = user; //get user without password
 
-// console.log({safeUser})
+
   const accessToken = helper.generateAccessToken(user);//generate access token
 
   // Send email Notification
