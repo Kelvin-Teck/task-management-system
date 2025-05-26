@@ -123,13 +123,13 @@ task-management-system/
 │   ├── utils/             # Helper functions (e.g., formatters, validators)
 |   |-- validators/        # Functions For Input Validations
 │   ├── types/ 
-|   |-- app.ts          # TypeScript type definitions
+|   |-- app.ts             # TypeScript type definitions
 │   └── index.ts           # Application entry point
 │
 |
 ├── .env                   # Environment variable definitions
 ├── .gitignore             # Git ignored files
-├── knexfile.ts            # Knex configuration
+├── .sequelizerc           # Sequelize configuration
 ├── package-lock.json
 |-- package.json           # Project metadata and scripts
 ├── tsconfig.json          # TypeScript compiler configuration
@@ -227,15 +227,11 @@ See the [MIT License](https://opensource.org/licenses/MIT) for more information.
 👤 **Author**
 
 Eneh Kelvin Chukwuemeka
-Developer & Maintainer of Demo-Credit
+Developer & Maintainer of Task Management System
 [GitHub](https://github.com/Kelvin-Teck)
 
-Built with ❤️ using Node.js, TypeScript, and MySQL.
+Built with ❤️ using Node.js, TypeScript, and PostgreSQl.
 
 **🙌 Acknowledgements**
 
-A Big Thanks to Lendsqr for the Adjutor Karma API for blacklist verification.
-
-Inspired by modern fintech wallet systems and micro-lending architectures.
-
-Special shout-out to the open-source community for continuous inspiration.
+Thanks to the open-source community for the tools and inspiration.
