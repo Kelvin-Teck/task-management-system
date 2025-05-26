@@ -103,7 +103,7 @@ Below is the Entity Relationship (ER) diagram representing the database schema f
 
 You can explore and test all endpoints using our Postman documentation:
 
-👉 [Task Management System API Docs](https://documenter.getpostman.com/view/30059286/2sB2ixjE3E)
+👉 [Task Management System API Docs](https://documenter.getpostman.com/view/30059286/2sB2qcE2MH)
 
 ## 🗂️ Project Structure
 
