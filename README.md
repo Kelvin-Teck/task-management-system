@@ -131,47 +131,6 @@ task-management-system/
 
 ```
 
-## 🧪 Testing
-
-Ensure you’ve set up your test environment before running tests.
-
-### 🔧 Setup
-
-Install testing dependencies (if you haven’t already):
-
-```bash
-npm install --save-dev jest ts-jest @types/jest supertest
-```
-
-Add a test script to your package.json:
-
-```json
-"scripts": {
-  "test": "jest"
-}
-```
-
-### 🧪 Running Tests
-
-```bash
-npm run test
-```
-
-Tests are usually placed in a **tests**/ directory and follow this structure:
-
-```
-__tests__/
-├── userController.spec.ts
-├── walletController.spec.ts
-├── userService.spec.ts
-├── walletService.spec.ts
-└── utils/
-    └── apiResponse.spec.ts
-    └── caseConverter.spec.ts
-    └── helpers.spec.ts
-    └── validator.spec.ts
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome and appreciated! Here’s how you can help:
