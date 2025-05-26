@@ -20,8 +20,8 @@ export const register = async (req: Request) => {
     return newError(errorMessages[0], 403);
   }
 
-  const user = await UserRepository.checkUserExistByEmail(value.email);
 
+  const user = await UserRepository.checkUserExistByEmail(value.email);
   if (user) {
     return newError("This User already exist", 403);
   }
