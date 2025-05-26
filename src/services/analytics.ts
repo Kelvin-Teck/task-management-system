@@ -35,3 +35,27 @@ export const getReportTime = async (req: Request) => {
   );
   return sortedTasks;
 };
+
+export const getCompletedTaskRate = async (req: Request) => {
+  const userId = typeof req.user === "object" ? req.user.id : null;
+
+  // get all Task of user
+  const userTasks = await TaskRepository.getAllTasksByUser(userId);
+
+  if (userTasks.length == 0) {
+    return newError("You do have not any Task", 404);
+  }
+
+  // get all completed task by user
+  const completedTasks = await TaskRepository.getAllCompletedTasksByUser(
+    userId
+  );
+
+  if (completedTasks.length == 0) {
+    return newError("You have so far not completed any Task", 404);
+  }
+
+  const completedTaskRate = (completedTasks.length / userTasks.length) * 100;
+
+  return { taskRate: parseFloat(completedTaskRate.toFixed(2)) };
+};

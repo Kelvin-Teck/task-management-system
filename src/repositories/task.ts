@@ -62,3 +62,19 @@ export const getAllCompletedTasks = async () => {
 
   return completedTasks;
 };
+
+export const getAllCompletedTasksByUser = async (userId: string) => {
+  const completedTasks = await Task.findAll({
+    where: { userId, status: "completed" },
+  });
+
+  return completedTasks;
+};
+
+export const getAllTasksByUser = async (userId: string) => {
+  const completedTasks = await Task.findAll({
+    where: { userId },
+  });
+
+  return completedTasks;
+};

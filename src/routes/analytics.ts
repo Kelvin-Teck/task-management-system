@@ -4,6 +4,8 @@ import { AdminGuard, AuthGuard, authorizeRoles } from "../middlewares/auth";
 
 const router = express.Router();
 
-router.get("/report-time", [AuthGuard], AnalyticsController.getReportTime);
+router
+  .get("/report-time", [AuthGuard], AnalyticsController.getReportTime)
+  .get("/report", [AuthGuard],AnalyticsController.getCompletedTaskRate);
 
 export default router;
