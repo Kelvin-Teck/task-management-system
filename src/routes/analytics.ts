@@ -6,6 +6,6 @@ const router = express.Router();
 
 router
   .get("/report-time", [AuthGuard], AnalyticsController.getReportTime)
-  .get("/report", [AuthGuard],AnalyticsController.getCompletedTaskRate);
+  .get("/report", [AuthGuard], AnalyticsController.getCompletedTaskRate);
 
 export default router;

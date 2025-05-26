@@ -115,3 +115,6 @@
 // 3. DB ER Diagram
 // 4. Modify the report route response
 // 5. Paginate where possible.
+// 6. Add optional DB settings
+// 7. caching
+// 8. Error Handling Middleware 

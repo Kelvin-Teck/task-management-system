@@ -1,13 +1,17 @@
 import { Op } from "sequelize";
 import { TaskAttributes } from "../interfaces/task";
 import { Task } from "../models";
+import { off } from "process";
 
 export const createTask = async (data: TaskAttributes) => {
   await Task.create(data);
 };
 
 export const getAllTasks = async (filters: any) => {
-  const { title, status, page = 1, limit = 10 } = filters;
+  
+  const { title, status, page, limit = 10 } = filters;
+  const currentPage = parseInt(page) || 1; 
+
   const query: any = {};
 
   // Dynamically build the query object based on provided filters
@@ -19,7 +23,8 @@ export const getAllTasks = async (filters: any) => {
     query.status = status; // Assuming 'status' is a field in the Task model
   }
 
-  const offset = (page - 1) * limit;
+  const offset = (currentPage - 1) * limit;
+  
 
   const allTasks = await Task.findAll({
     where: query,

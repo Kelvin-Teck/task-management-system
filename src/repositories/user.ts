@@ -12,3 +12,9 @@ export const checkUserExistByEmail = async (
 export const createNewUser = async (userData: UserAttributes) => {
   await User.create(userData);
 };
+
+export const getUserById = async (userId: string) => {
+  const user = await User.findOne({ where: { id: userId } });
+
+  return user
+};

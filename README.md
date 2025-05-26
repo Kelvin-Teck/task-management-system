@@ -93,9 +93,9 @@ The server should now be running on `http://localhost:<your_specified_port>`
 
 ## 💽 Database Design (ER Diagram)
 
-Below is the Entity Relationship (ER) diagram representing the database schema for the Demo-Credit application:
+Below is the Entity Relationship (ER) diagram representing the database schema for the TMS application:
 
-![Demo-Credit ER Diagram](./demo-credit-erd_1.png)
+![TMS ER Diagram](./demo-credit-erd_1.png)
 
 > This diagram illustrates the relationships between users, wallets, transactions, and other core entities in the system.
 
@@ -227,7 +227,7 @@ See the [MIT License](https://opensource.org/licenses/MIT) for more information.
 👤 **Author**
 
 Eneh Kelvin Chukwuemeka
-Developer & Maintainer of Task Management System
+Developer & Maintainer of Task Management System (TMS)
 [GitHub](https://github.com/Kelvin-Teck)
 
 Built with ❤️ using Node.js, TypeScript, and PostgreSQl.

@@ -119,3 +119,42 @@ export const authorizeRoles = (...roles: string[]) => {
     }
   };
 };
+
+
+// Define user roles (you can add more as needed)
+type UserRole = 'user' | 'admin';
+
+// Extend Express Request type to include user
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user?: {
+//         id: string;
+//         role: UserRole;
+//         // Add other user properties as needed
+//       };
+//     }
+//   }
+// }
+
+// Flexible role checker (factory function)
+export const checkRole = (...allowedRoles: UserRole[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.user);
+
+    if (!req.user?.role) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+    
+    next();
+  };
+};
+
+// Pre-defined middlewares for convenience
+export const allowAdmin = checkRole('admin');
+export const allowUser = checkRole('user');
+export const allowBoth = checkRole('user', 'admin');

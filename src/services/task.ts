@@ -31,8 +31,8 @@ export const createTask = async (req: Request) => {
 };
 
 export const getAllTasks = async (req: Request) => {
-  const { title, status } = req.query;
-  const allTasks = await TaskRepository.getAllTasks({ title, status });
+  const { title, status, page } = req.query;
+  const allTasks = await TaskRepository.getAllTasks({ title, status, page });
 
   if (allTasks.tasks.length == 0) {
     return newError("You do not have any task at the moment", 404);
@@ -77,12 +77,9 @@ export const deleteTask = async (req: Request) => {
 
   const task = await TaskRepository.getTaskById(id);
 
-  
   if (!task) {
     return newError("Sorry this Task does not exist", 404);
   }
 
   await TaskRepository.deleteTask(id);
 };
-
-
