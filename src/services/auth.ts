@@ -69,10 +69,10 @@ export const login = async (req: Request) => {
     return newError("Incorrect Password...Try Again", 403);
   }
 
-  const { password: pass, ...safeUser } = user; //get user without password
+//   const { password: pass, ...safeUser } = user; //get user without password
 
-
-  const accessToken = helper.generateAccessToken(safeUser);//generate access token
+// console.log({safeUser})
+  const accessToken = helper.generateAccessToken(user);//generate access token
 
   // Send email Notification
 

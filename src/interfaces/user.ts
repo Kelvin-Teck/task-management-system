@@ -1,3 +1,6 @@
+import { Request } from "express";
+import { JwtPayload } from "jsonwebtoken";
+
 // Define user roles enum
 export enum UserRole {
   ADMIN = "admin",
@@ -16,4 +19,10 @@ export interface UserAttributes {
 
 export interface UserCreationAttributes extends UserAttributes {
   id?: number;
+}
+
+export interface AuthPayload extends JwtPayload {
+  id: number;
+  email: string;
+  role: "user" | "admin";
 }

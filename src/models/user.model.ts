@@ -79,7 +79,7 @@ export const initUserModel = (sequelize: Sequelize) => {
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "user",
       tableName: "users",
       timestamps: true,
       indexes: [
