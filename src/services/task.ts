@@ -12,6 +12,7 @@ export const createTask = async (req: Request) => {
     title,
     description,
     userId,
+    status
   });
 
   if (error) {
@@ -20,11 +21,19 @@ export const createTask = async (req: Request) => {
     return newError(errorMessages[0], 403);
   }
 
+  // check if task exists before
+  const task = await TaskRepository.findTaskByTitle(value.title)
+
+  if (task) {
+    return newError(`Sorry this task already exist, status: ${task.status.toLocaleUpperCase()}`, 403)
+  }
+
   //   add new task to database
   const newTask = {
     title: value.title,
     description: value.description,
     userId: value.userId,
+    status: value.status
   };
 
   await TaskRepository.createTask(newTask);
@@ -35,7 +44,7 @@ export const getAllTasks = async (req: Request) => {
   const allTasks = await TaskRepository.getAllTasks({ title, status, page });
 
   if (allTasks.tasks.length == 0) {
-    return newError("You do not have any task at the moment", 404);
+    return newError("No Task(s)", 404);
   }
 
   return allTasks;

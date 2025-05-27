@@ -37,7 +37,7 @@ export const generateAccessToken = (user: Partial<UserAttributes>): string => {
   const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
     expiresIn: "1d",
   });
-    console.log({h: jwt.decode(token) });
+    
   return token;
 };
 

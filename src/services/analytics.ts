@@ -7,7 +7,7 @@ import { newError } from "../utils/apiResponses";
 export const getReportTime = async (req: Request) => {
   // get all completed tasks
   const allCompletedTasks = await TaskRepository.getAllCompletedTasks();
-
+console.log({allCompletedTasks})
   if (allCompletedTasks.length == 0) {
     return newError("No Completed Task Found", 404);
   }

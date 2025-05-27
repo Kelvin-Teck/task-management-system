@@ -24,7 +24,6 @@ export const createRateLimiter = (
   });
 };
 
-
 export const AuthGuard = async (
   req: Request,
   res: Response,
@@ -45,116 +44,104 @@ export const AuthGuard = async (
     if (!decoded) return newError("Token has Expired", 403); //Returns Error at Failure to decrypt
 
     req.user = decoded; //Store decoded data to the request handler
-console.log(token, decoded)
+
     next(); //move To the next middleware
   } catch (error: any) {
-    console.log(error.message);
+  
 
     //   throw error.message;
-    return res.status(500).json(sendError(error.message || "an unknown error occured", 500))
+    return res
+      .status(500)
+      .json(sendError(error.message || "an unknown error occured", 500));
   }
 };
 
-
-export const AdminGuard = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (req.user && typeof req.user !== "string" && req.user.role === "admin") {
-    console.log(req.user)
-    return next(); //Move To the next middleware
-  } else {
-    return newError("Access denied, Admins only", 403);
-  }
-};
-
-
-export const authorizeRoles = (...roles: string[]) => {
-  return async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const authorization = req.headers.authorization;
-
-      if (!authorization) {
-        return res
-          .status(403)
-          .json(newError("Authorization header missing", 403));
-      }
-
-      const token = authorization.split(" ")[1];
-      if (!token) {
-        return res.status(403).json(newError("Token missing", 403));
-      }
-
-      const decoded = await helper.verifyAccessToken(token);
-      if (!decoded) {
-        return res.status(403).json(newError("Invalid or expired token", 403));
-      }
-
-      req.user = decoded;
-
-      if (roles.length && !roles.includes(decoded.role)) {
-        return res
-          .status(403)
-          .json(newError("Access denied: insufficient permissions", 403));
-      }
-
-      next();
-    } catch (error: any) {
-      console.error("Authorization error:", error);
-      res
-        .status(500)
-        .json(
-          newError(
-            process.env.NODE_ENV === "development"
-              ? error.message || "Authorization failed"
-              : "Authentication error",
-            500
-          )
-        );
-    }
-  };
-};
-
-
-// Define user roles (you can add more as needed)
-type UserRole = 'user' | 'admin';
-
-// Extend Express Request type to include user
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       user?: {
-//         id: string;
-//         role: UserRole;
-//         // Add other user properties as needed
-//       };
-//     }
+// export const AdminGuard = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   if (req.user && typeof req.user !== "string" && req.user.role === "admin") {
+//     console.log(req.user)
+//     return next(); //Move To the next middleware
+//   } else {
+//     return newError("Access denied, Admins only", 403);
 //   }
-// }
+// };
+
+// export const authorizeRoles = (...roles: string[]) => {
+//   return async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+//   ) => {
+//     try {
+//       const authorization = req.headers.authorization;
+
+//       if (!authorization) {
+//         return res
+//           .status(403)
+//           .json(newError("Authorization header missing", 403));
+//       }
+
+//       const token = authorization.split(" ")[1];
+//       if (!token) {
+//         return res.status(403).json(newError("Token missing", 403));
+//       }
+
+//       const decoded = await helper.verifyAccessToken(token);
+//       if (!decoded) {
+//         return res.status(403).json(newError("Invalid or expired token", 403));
+//       }
+
+//       req.user = decoded;
+
+//       if (roles.length && !roles.includes(decoded.role)) {
+//         return res
+//           .status(403)
+//           .json(newError("Access denied: insufficient permissions", 403));
+//       }
+
+//       next();
+//     } catch (error: any) {
+//       console.error("Authorization error:", error);
+//       res
+//         .status(500)
+//         .json(
+//           newError(
+//             process.env.NODE_ENV === "development"
+//               ? error.message || "Authorization failed"
+//               : "Authentication error",
+//             500
+//           )
+//         );
+//     }
+//   };
+// };
 
 // Flexible role checker (factory function)
 export const checkRole = (...allowedRoles: UserRole[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.user);
-
+    
     if (!req.user?.role) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      res.status(401).json({ message: "You are Unauthorized" });
+      return;
     }
-    
+
     if (!allowedRoles.includes(req.user.role)) {
-      return res.status(403).json({ message: 'Forbidden' });
+      res
+        .status(403)
+        .json({
+          message: "Access denied. Only admins can access this resource...",
+        });
+      return;
     }
-    
+
     next();
   };
 };
 
 // Pre-defined middlewares for convenience
-export const allowAdmin = checkRole('admin');
-export const allowUser = checkRole('user');
-export const allowBoth = checkRole('user', 'admin');
+// export const allowAdmin = () => checkRole('admin');
+// export const allowUser = checkRole('user');
+// export const allowBoth = (req: Request, res: Response, next: NextFunction) => checkRole('user', 'admin');

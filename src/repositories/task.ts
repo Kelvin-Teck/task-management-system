@@ -5,6 +5,7 @@ import { off } from "process";
 
 export const createTask = async (data: TaskAttributes) => {
   await Task.create(data);
+  return;
 };
 
 export const getAllTasks = async (filters: any) => {
@@ -83,3 +84,9 @@ export const getAllTasksByUser = async (userId: string) => {
 
   return completedTasks;
 };
+
+export const findTaskByTitle = async (title: string) => {
+  const task = await Task.findOne({ where: { title } });
+
+  return task;
+}

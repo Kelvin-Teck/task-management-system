@@ -1,11 +1,11 @@
 import express from "express";
 import * as AnalyticsController from "../controllers/analytics";
-import { AdminGuard, AuthGuard, authorizeRoles } from "../middlewares/auth";
+import { AuthGuard,  checkRole } from "../middlewares/auth";
 
 const router = express.Router();
 
 router
-  .get("/report-time", [AuthGuard], AnalyticsController.getReportTime)
-  .get("/report", [AuthGuard], AnalyticsController.getCompletedTaskRate);
+  .get("/report-time", [AuthGuard, checkRole('admin')], AnalyticsController.getReportTime)
+  .get("/report", [AuthGuard, checkRole('admin')], AnalyticsController.getCompletedTaskRate);
 
 export default router;

@@ -3,6 +3,7 @@ import * as validator from "../validators/users";
 import { newError } from "../utils/apiResponses";
 import * as UserRepository from "../repositories/user";
 import * as helper from "../utils/helpers";
+import * as Mailer from "../mailers";
 
 export const register = async (req: Request) => {
   const { name, email, password, role } = req.body;
@@ -19,7 +20,6 @@ export const register = async (req: Request) => {
 
     return newError(errorMessages[0], 403);
   }
-
 
   const user = await UserRepository.checkUserExistByEmail(value.email);
   if (user) {
@@ -38,6 +38,22 @@ export const register = async (req: Request) => {
   };
 
   await UserRepository.createNewUser(newUser);
+  // send email Notification
+  try {
+    const emailData = {
+      to: newUser.email,
+      subject: "TMS Account Creation",
+      template: "create-user",
+      context: {
+        name: newUser.name,
+        loginUrl: "https://somefrontendloginurl.com",
+        year: new Date().getFullYear(),
+      },
+    };
+    await Mailer.sendMail(emailData);
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const login = async (req: Request) => {
@@ -60,8 +76,8 @@ export const login = async (req: Request) => {
 
   if (!user) {
     return newError("This User does not exist", 404);
-    }
-    
+  }
+
   // verify password
   const checkPassword = await helper.comparePassword(password, user.password);
 
@@ -69,12 +85,28 @@ export const login = async (req: Request) => {
     return newError("Incorrect Password...Try Again", 403);
   }
 
-//   const { password: pass, ...safeUser } = user; //get user without password
+  //   const { password: pass, ...safeUser } = user; //get user without password
 
-
-  const accessToken = helper.generateAccessToken(user);//generate access token
+  const accessToken = helper.generateAccessToken(user); //generate access token
 
   // Send email Notification
+  try {
+    const emailData = {
+      to: user.email,
+      subject: "TMS Account Creation",
+      template: "create-user",
+      context: {
+        name: user.name,
+        securityLink: "https://somesecurityreviewurl.com",
+        loginTime: new Date().getTime(),
+        ipAddress: req.ip,
+      },
+    };
 
-  return { token: accessToken};
+    await Mailer.sendMail(emailData);
+  } catch (error) {
+    throw error;
+  }
+
+  return { token: accessToken, user: { id: user.id, email: user.email } };
 };

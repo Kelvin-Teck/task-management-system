@@ -1,15 +1,15 @@
 import express from "express";
 import * as TaskController from "../controllers/task";
-import { allowAdmin, AuthGuard, checkRole } from "../middlewares/auth";
+import {  AuthGuard, checkRole } from "../middlewares/auth";
 
 const router = express.Router();
 
-router.get("/tasks", [AuthGuard], TaskController.getAllTasks);
+router.get("/tasks", [AuthGuard, checkRole('admin', 'user')], TaskController.getAllTasks);
 
-router.post("/tasks", [AuthGuard], TaskController.createTask);
+router.post("/tasks", [AuthGuard, checkRole('admin', 'user')], TaskController.createTask);
 
-router.put("/tasks/:id", [AuthGuard], TaskController.updateTask);
+router.put("/tasks/:id", [AuthGuard, checkRole('admin', 'user')], TaskController.updateTask);
 
-router.delete("/tasks/:id", [AuthGuard], TaskController.deleteTask);
+router.delete("/tasks/:id", [AuthGuard, checkRole('admin', 'user')], TaskController.deleteTask);
 
 export default router;
