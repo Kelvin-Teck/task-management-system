@@ -3,6 +3,7 @@ import { QueryInterface, DataTypes } from "sequelize";
 export default {
   up: async (queryInterface: QueryInterface): Promise<void> => {
     await queryInterface.createTable("users", {
+      // ✅ Changed to "users"
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -40,7 +41,7 @@ export default {
   },
 
   down: async (queryInterface: QueryInterface): Promise<void> => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("users"); // ✅ Correct - matches "up"
     await queryInterface.sequelize.query(
       'DROP TYPE IF EXISTS "enum_users_role";'
     );

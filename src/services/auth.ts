@@ -7,6 +7,8 @@ import * as Mailer from "../mailers";
 
 export const register = async (req: Request) => {
   const { name, email, password, role } = req.body;
+
+  console.log({ name, email, password, role });
   // validate user input
   const { error, value } = validator.registerUser({
     name,
@@ -14,6 +16,8 @@ export const register = async (req: Request) => {
     password,
     role,
   });
+
+console.log(error)
 
   if (error) {
     const errorMessages = error.details.map((err) => err.message);

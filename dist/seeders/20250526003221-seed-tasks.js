@@ -1,0 +1,267 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+("use strict");
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+    up(queryInterface) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const now = new Date();
+            yield queryInterface.bulkInsert("tasks", [
+                {
+                    title: "Fix login bug",
+                    description: "Users cannot log in with correct credentials",
+                    status: "in-progress",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Implement password reset",
+                    description: "Allow users to reset passwords via email",
+                    status: "pending",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Update user profile page",
+                    description: "Add bio and avatar upload",
+                    status: "completed",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Deploy staging server",
+                    description: "Setup CI/CD for staging",
+                    status: "in-progress",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Write unit tests",
+                    description: "Add tests for the user controller",
+                    status: "pending",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Optimize image loading",
+                    description: "Use lazy loading for homepage images",
+                    status: "completed",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Implement dark mode",
+                    description: "Toggle light and dark themes",
+                    status: "pending",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Refactor auth middleware",
+                    description: "Improve error handling and validation",
+                    status: "in-progress",
+                    userId: 1,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Fix navbar responsiveness",
+                    description: "Navbar breaks on mobile view",
+                    status: "pending",
+                    userId: 4,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add pagination to task list",
+                    description: "Limit tasks per page and add navigation",
+                    status: "completed",
+                    userId: 2,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Upgrade database version",
+                    description: "Migrate from PostgreSQL 12 to 14",
+                    status: "in-progress",
+                    userId: 2,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Design 404 page",
+                    description: "Add a custom design for not-found routes",
+                    status: "pending",
+                    userId: 2,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Set up error logging",
+                    description: "Integrate Sentry for error tracking",
+                    status: "completed",
+                    userId: 2,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Fix CORS issues",
+                    description: "Allow cross-origin requests from frontend",
+                    status: "pending",
+                    userId: 3,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add confirmation modals",
+                    description: "Ask users to confirm delete actions",
+                    status: "in-progress",
+                    userId: 3,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Create admin dashboard",
+                    description: "Show metrics and user data",
+                    status: "completed",
+                    userId: 4,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Fix search functionality",
+                    description: "Search returns incorrect results",
+                    status: "pending",
+                    userId: 4,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add role-based access control",
+                    description: "Restrict access based on user roles",
+                    status: "in-progress",
+                    userId: 5,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Improve loading speed",
+                    description: "Reduce initial load time under 2s",
+                    status: "pending",
+                    userId: 5,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Write documentation",
+                    description: "Document API endpoints and project setup",
+                    status: "completed",
+                    userId: 5,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Update dependencies",
+                    description: "Update npm packages and check for breaking changes",
+                    status: "in-progress",
+                    userId: 6,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add user onboarding guide",
+                    description: "Create a walkthrough for new users",
+                    status: "pending",
+                    userId: 6,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Fix avatar upload issue",
+                    description: "Images fail to upload for some users",
+                    status: "completed",
+                    userId: 7,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Implement caching",
+                    description: "Add Redis for caching frequently used data",
+                    status: "pending",
+                    userId: 7,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Setup performance monitoring",
+                    description: "Use tools like New Relic or Datadog",
+                    status: "in-progress",
+                    userId: 8,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Build notification system",
+                    description: "Send alerts for task updates",
+                    status: "completed",
+                    userId: 8,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add task export feature",
+                    description: "Allow users to export tasks as CSV",
+                    status: "pending",
+                    userId: 8,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Fix logout redirect",
+                    description: "Users aren't redirected to login after logout",
+                    status: "completed",
+                    userId: 9,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Enable 2FA for admin",
+                    description: "Add two-factor authentication",
+                    status: "pending",
+                    userId: 9,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+                {
+                    title: "Add task prioritization",
+                    description: "Allow users to set task priority",
+                    status: "in-progress",
+                    userId: 10,
+                    createdAt: now,
+                    updatedAt: now,
+                },
+            ], {});
+        });
+    },
+    down(queryInterface) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield queryInterface.bulkDelete("tasks", {}, {});
+        });
+    },
+};
